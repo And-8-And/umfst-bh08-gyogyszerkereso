@@ -78,9 +78,16 @@ async function osszesit(nevek) {
   document.getElementById('osszeg').textContent = osszeg;
 }
 
+let frissitInterval;
+
 document.getElementById('frissit').addEventListener('click', () => {
-  setInterval(() => {
-    fakeFetch(input.value.trim()).then(megjelenit);
+    clearInterval(frissitInterval);
+    frissitInterval = setInterval(() => {
+        fakeFetch(input.value.trim())
+        .then(megjelenit)
+        .catch(e => {
+            allapot.textContent = 'Hiba: ' + e.message;
+        });
   }, 2000);
 });
 </script>
