@@ -72,7 +72,9 @@ function megjelenit(nevek) {
 
 async function osszesit(nevek) {
   let osszeg = 0;
-  nevek.forEach(async n => { osszeg += await fakePrice(n); });
+  for (const n of nevek) {
+    osszeg += await fakePrice(n);
+  }
   document.getElementById('osszeg').textContent = osszeg;
 }
 
