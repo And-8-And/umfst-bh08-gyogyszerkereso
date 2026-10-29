@@ -45,15 +45,16 @@ input.addEventListener('input', () => {
   keresesTimeout = setTimeout(() => {
     utolsoKeres++;
     const aktualisKeres = utolsoKeres;
-    try {
-      fakeFetch(q).then(nevek => {
+    fakeFetch(q).then(nevek => {
         if (aktualisKeres === utolsoKeres) {
           megjelenit(nevek);
         }
+      })
+      .catch(e => {
+        if (aktualisKeres === utolsoKeres) {
+          allapot.textContent = 'Hiba: ' + e.message;
+        }
       });
-    } catch (e) {
-      allapot.textContent = 'Hiba: ' + e.message;
-    }
   }, 300);
 });
 
