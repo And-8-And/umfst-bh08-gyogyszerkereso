@@ -36,14 +36,21 @@ const input = document.getElementById('q');
 const allapot = document.getElementById('allapot');
 
 let keresesTimeout;
+let utolsoKeres = 0;
 
 input.addEventListener('input', () => {
   const q = input.value.trim();
   allapot.textContent = 'Keresés…';
   clearTimeout(keresesTimeout);
   keresesTimeout = setTimeout(() => {
+    utolsoKeres++;
+    const aktualisKeres = utolsoKeres;
     try {
-      fakeFetch(q).then(megjelenit);
+      fakeFetch(q).then(nevek => {
+        if (aktualisKeres === utolsoKeres) {
+          megjelenit(nevek);
+        }
+      });
     } catch (e) {
       allapot.textContent = 'Hiba: ' + e.message;
     }
