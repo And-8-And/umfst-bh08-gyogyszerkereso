@@ -35,14 +35,19 @@ function fakePrice(nev) {
 const input = document.getElementById('q');
 const allapot = document.getElementById('allapot');
 
+let keresesTimeout;
+
 input.addEventListener('input', () => {
   const q = input.value.trim();
   allapot.textContent = 'Keresés…';
-  try {
-    fakeFetch(q).then(megjelenit);
-  } catch (e) {
-    allapot.textContent = 'Hiba: ' + e.message;
-  }
+  clearTimeout(keresesTimeout);
+  keresesTimeout = setTimeout(() => {
+    try {
+      fakeFetch(q).then(megjelenit);
+    } catch (e) {
+      allapot.textContent = 'Hiba: ' + e.message;
+    }
+  }, 300);
 });
 
 function megjelenit(nevek) {
